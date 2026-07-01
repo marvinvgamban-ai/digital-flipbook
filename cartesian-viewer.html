@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cartesian Worldview Viewer</title>
+    <link rel="stylesheet" href="cartesian-styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="viewer-container">
+        <!-- Navigation Header -->
+        <header class="viewer-header">
+            <div class="header-content">
+                <h1 class="viewer-title">Cartesian Worldview</h1>
+                <p class="viewer-subtitle">by Gamban & Rafa (2026)</p>
+            </div>
+            <div class="view-controls">
+                <button class="view-btn active" id="gridViewBtn" title="Grid View">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3 3h8v8H3V3zm10 0h8v8h-8V3zM3 13h8v8H3v-8zm10 0h8v8h-8v-8z"/>
+                    </svg>
+                </button>
+                <button class="view-btn" id="fullscreenViewBtn" title="Fullscreen">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- Loading State -->
+        <div class="loading-container" id="loadingContainer">
+            <div class="loader"></div>
+            <p>Loading PDF...</p>
+        </div>
+
+        <!-- Main Viewer -->
+        <main class="viewer-main" id="viewerMain" style="display: none;">
+            <!-- Grid View -->
+            <div class="grid-view" id="gridView">
+                <div class="grid-container" id="gridContainer"></div>
+            </div>
+
+            <!-- Fullscreen/Single Page View -->
+            <div class="fullscreen-view" id="fullscreenView" style="display: none;">
+                <div class="page-viewer">
+                    <button class="nav-btn prev" id="prevPageBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                    
+                    <div class="page-display">
+                        <canvas id="pageCanvas"></canvas>
+                    </div>
+                    
+                    <button class="nav-btn next" id="nextPageBtn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="page-controls">
+                    <div class="page-info">
+                        <input type="number" id="pageInputFS" class="page-input" min="1" value="1">
+                        <span class="separator">/</span>
+                        <span id="totalPagesFS">0</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFillFS"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Error Message -->
+        <div class="error-container" id="errorContainer" style="display: none;">
+            <div class="error-box">
+                <h3>Error Loading PDF</h3>
+                <p id="errorMessage"></p>
+                <button class="btn-primary" onclick="location.reload()">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="cartesian-script.js"></script>
+</body>
+</html>
