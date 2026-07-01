@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Flipbook - PDF Presentation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+</head>
+<body>
+    <div class="flipbook-container">
+        <!-- Header -->
+        <header class="flipbook-header">
+            <div class="header-left">
+                <h1 class="title">Digital Flipbook</h1>
+            </div>
+            <div class="header-right">
+                <button class="control-btn" id="fullscreenBtn" title="Fullscreen">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path>
+                    </svg>
+                </button>
+            </div>
+        </header>
+
+        <!-- PDF Upload Section -->
+        <div class="upload-section" id="uploadSection">
+            <div class="upload-box">
+                <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="upload-icon">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                </svg>
+                <h2>Upload PDF Presentation</h2>
+                <p>Drag and drop your PDF file here or click to select</p>
+                <input type="file" id="pdfInput" accept=".pdf" style="display: none;">
+                <button class="upload-btn" id="uploadBtn">Choose PDF</button>
+            </div>
+        </div>
+
+        <!-- Flipbook Section -->
+        <div class="flipbook-wrapper" id="flipbookWrapper" style="display: none;">
+            <!-- Book Container -->
+            <div class="book-container">
+                <div class="book">
+                    <!-- Left Page -->
+                    <div class="page page-left" id="leftPage">
+                        <div class="page-content">
+                            <canvas id="leftCanvas"></canvas>
+                        </div>
+                        <div class="page-number page-number-left" id="leftPageNum">1</div>
+                    </div>
+
+                    <!-- Right Page -->
+                    <div class="page page-right" id="rightPage">
+                        <div class="page-content">
+                            <canvas id="rightCanvas"></canvas>
+                        </div>
+                        <div class="page-number page-number-right" id="rightPageNum">2</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controls Section -->
+            <div class="controls-section">
+                <div class="controls-left">
+                    <button class="control-btn prev-btn" id="prevBtn" title="Previous">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="15 18 9 12 15 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+
+                <div class="controls-center">
+                    <div class="page-input-group">
+                        <input type="number" id="pageInput" class="page-input" min="1" value="1">
+                        <span class="page-separator">/</span>
+                        <span class="total-pages" id="totalPages">0</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill"></div>
+                    </div>
+                </div>
+
+                <div class="controls-right">
+                    <button class="control-btn next-btn" id="nextBtn" title="Next">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="9 18 15 12 9 6"></polyline>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Thumbnail Strip -->
+            <div class="thumbnail-section">
+                <div class="thumbnail-strip" id="thumbnailStrip"></div>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div class="loading-spinner" id="loadingSpinner" style="display: none;">
+            <div class="spinner"></div>
+            <p>Loading PDF...</p>
+        </div>
+
+        <!-- Error Message -->
+        <div class="error-message" id="errorMessage" style="display: none;">
+            <p id="errorText"></p>
+            <button class="close-error" id="closeError">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
