@@ -13,6 +13,7 @@ class DigitalFlipbook {
 
         this.initializeElements();
         this.attachEventListeners();
+        this.autoLoadPDF(); // Auto-load PDF on startup
     }
 
     initializeElements() {
@@ -71,6 +72,21 @@ class DigitalFlipbook {
                 this.handleFileUpload({ target: { files: e.dataTransfer.files } });
             }
         });
+    }
+
+    async autoLoadPDF() {
+        const pdfPath = './CARTESIAN WORLDVIEW_GAMBAN & RAFA (2026)_compressed_compressed.pdf';
+        try {
+            const response = await fetch(pdfPath);
+            if (!response.ok) {
+                console.warn('Auto-load PDF not found. Please upload a PDF manually.');
+                return;
+            }
+            const arrayBuffer = await response.arrayBuffer();
+            await this.loadPDF(arrayBuffer);
+        } catch (error) {
+            console.warn('Could not auto-load PDF:', error.message);
+        }
     }
 
     async handleFileUpload(event) {
